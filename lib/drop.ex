@@ -20,4 +20,12 @@ defmodule Drop do
 
     :math.sqrt(2 * gravity * abs(distance))
   end
+
+  def drop do
+    receive do
+      {from, planermo, distance} ->
+        send(from, {planermo, distance, fall_velocity({planermo, distance})})
+        drop()
+    end
+  end
 end
